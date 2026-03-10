@@ -13,6 +13,21 @@
   - ✅ Generated premium iOS-style UI using Stitch AI (Gemini 3.1 Pro).
   - ✅ Badged as a Participant in the TestSprite Discord.
 
+## 🚀 Live Project Pulse (Daily KPIs)
+*Last Updated: Tuesday, March 10, 2026*
+
+| KPI Metric | Goal | Current Status | Notes |
+| :--- | :--- | :--- | :--- |
+| **UI Design** | 100% | 🟢 **100%** | iOS Glassmorphism finalized |
+| **Firebase Backend** | 100% | 🟡 **100%** | Auth & Firestore initialized |
+| **Test Coverage** | > 90% | 🔴 **0%** | Waiting for backend completion |
+
+### 📅 Day 2 Milestone: Backend Foundation
+- [x] Create Firebase Project & Web Config.
+- [x] Implement Google Auth via Firebase.
+- [ ] Set up Firestore Security Rules for "Audit Logs."
+- [ ] Connect "Run Audit" button to Firebase function.
+
 ##🛡️ TestSprite AI Integration
 This project is verified using **Agentic QA** via the TestSprite Model Context Protocol (MCP). 
 
