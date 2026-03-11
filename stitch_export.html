@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#4f46e5", // Indigo 600
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#0f172a", // Slate 900
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "1.25rem",
+                        "2xl": "1.5rem",
+                        "3xl": "2rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+            background: radial-gradient(circle at top left, #312e81, #0f172a, #000000);
+            min-height: 100vh;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .sidebar-glass {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .pulsing-text {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; color: #22c55e; }
+            50% { opacity: .6; color: #4ade80; }
+        }
+    </style>
+</head>
+<body class="text-slate-100 overflow-hidden">
+<div class="flex h-screen w-full">
+<!-- Sidebar Navigation -->
+<aside class="sidebar-glass w-72 flex flex-col justify-between p-6 shrink-0">
+<div class="flex flex-col gap-8">
+<!-- Branding -->
+<div class="flex items-center gap-3">
+<div class="bg-primary/20 p-2 rounded-2xl border border-primary/30">
+<span class="material-symbols-outlined text-primary text-3xl">shield_person</span>
+</div>
+<div>
+<h1 class="text-white text-xl font-extrabold tracking-tight">Sentinel-Auth</h1>
+<p class="text-slate-400 text-xs font-medium uppercase tracking-widest">Premium Security</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-2xl bg-white/10 text-white border border-white/10" href="#">
+<span class="material-symbols-outlined text-[22px]">dashboard</span>
+<span class="text-sm font-semibold">Security Insights</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-2xl text-slate-400 hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-[22px]">history</span>
+<span class="text-sm font-medium">Audit History</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-2xl text-slate-400 hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-[22px]">description</span>
+<span class="text-sm font-medium">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-2xl text-slate-400 hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-[22px]">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+</div>
+<!-- Profile / Account Switcher -->
+<div class="flex flex-col gap-4 border-t border-white/5 pt-6">
+<div class="flex items-center gap-3 px-3 py-2 rounded-2xl hover:bg-white/5 cursor-pointer transition-all">
+<div class="size-10 rounded-full bg-primary flex items-center justify-center border-2 border-white/20">
+<span class="text-xs font-bold">JD</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-white">John Doe</p>
+<p class="text-[10px] text-slate-400 font-medium">Enterprise Admin</p>
+</div>
+<span class="material-symbols-outlined text-slate-500">unfold_more</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col relative overflow-hidden">
+<!-- Content Scroll Area -->
+<div class="flex-1 overflow-y-auto p-8 pb-32">
+<div class="max-w-4xl mx-auto flex flex-col gap-8">
+<!-- Top Alert Banner / Recent Result -->
+<div class="glass p-6 rounded-3xl flex items-center justify-between border-red-500/20 bg-red-500/5 animate-pulse border-red-500/40 ring-2 ring-red-500/20">
+<div class="flex items-start gap-4">
+<div class="bg-red-500/20 p-3 rounded-2xl">
+<span class="material-symbols-outlined text-red-500 text-3xl">warning</span>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-red-500 text-[10px] font-black rounded-full text-white uppercase tracking-wider">Danger</span>
+<span class="text-slate-400 text-xs">Audit ID: #88291 • 2 mins ago</span>
+</div>
+<h2 class="text-xl font-bold text-white tracking-tight">Critical Vulnerability Detected</h2>
+<p class="text-slate-400 text-sm max-w-lg leading-relaxed">System identified a high-risk pattern in the provided content. Possible unauthorized access attempt detected from unknown source.</p>
+</div>
+</div>
+<button class="bg-white text-slate-900 px-6 py-2.5 rounded-2xl font-bold text-sm hover:bg-slate-200 transition-all shrink-0">
+                            Review Breach
+                        </button>
+</div>
+<!-- Informational Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="glass p-6 rounded-3xl border-white/5 flex flex-col gap-4">
+<div class="size-10 rounded-2xl bg-indigo-500/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-indigo-400">shield_with_heart</span>
+</div>
+<div>
+<h3 class="text-lg font-bold text-white">AI Protection</h3>
+<p class="text-slate-400 text-sm">Deep learning models analyze behavior to prevent zero-day attacks.</p>
+</div>
+</div>
+<div class="glass p-6 rounded-3xl border-white/5 flex flex-col gap-4">
+<div class="size-10 rounded-2xl bg-emerald-500/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-emerald-400">verified_user</span>
+</div>
+<div>
+<h3 class="text-lg font-bold text-white">Trust Layer</h3>
+<p class="text-slate-400 text-sm">Real-time authentication verification for all connected nodes.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Chat-Style Input -->
+<div class="absolute bottom-0 left-0 right-0 p-8 pt-0 pointer-events-none">
+<div class="max-w-4xl mx-auto pointer-events-auto">
+<div class="glass rounded-3xl p-2 border-white/20 shadow-2xl shadow-black/50 overflow-hidden animate-pulse">
+<div class="flex flex-col gap-2">
+<textarea class="w-full bg-transparent border-none focus:ring-0 text-white placeholder-slate-500 text-base py-3 px-4 min-h-[100px] resize-none cursor-not-allowed opacity-50" disabled="true" placeholder="Paste suspicious content, log snippets, or code for AI deep audit..."></textarea>
+<div class="flex items-center justify-between p-2">
+<div class="flex items-center gap-1">
+<button class="p-2.5 rounded-2xl hover:bg-white/10 text-slate-400 hover:text-white transition-all opacity-30 cursor-not-allowed pointer-events-none" disabled="true" title="Add Photo">
+<span class="material-symbols-outlined">add_a_photo</span>
+</button>
+<button class="p-2.5 rounded-2xl hover:bg-white/10 text-slate-400 hover:text-white transition-all opacity-30 cursor-not-allowed pointer-events-none" disabled="true" title="Upload Files">
+<span class="material-symbols-outlined">upload_file</span>
+</button>
+<button class="p-2.5 rounded-2xl hover:bg-white/10 text-slate-400 hover:text-white transition-all opacity-30 cursor-not-allowed pointer-events-none" disabled="true" title="Link Account">
+<span class="material-symbols-outlined">link</span>
+</button>
+</div>
+<button class="bg-primary hover:bg-indigo-700 text-white px-6 py-3 rounded-2xl font-bold flex items-center gap-2 transition-all shadow-lg shadow-primary/20 opacity-75 cursor-not-allowed" disabled="true"><span class="material-symbols-outlined text-[20px] animate-spin">sync</span><span>Analyzing Threat...</span></button>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="mt-4 flex justify-center">
+<p class="text-[10px] uppercase font-black tracking-widest pulsing-text flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+                            Verified by TestSprite Security Engine
+                        </p>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Background Decoration -->
+<div class="fixed top-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-600/10 blur-[120px] rounded-full -z-10"></div>
+<div class="fixed bottom-[-5%] left-[-5%] w-[30%] h-[30%] bg-primary/10 blur-[100px] rounded-full -z-10"></div>
+</body></html>
