@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { auth, googleProvider } from '../config/firebase';
-import { signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
+import { signInWithPopup, signOut, onAuthStateChanged, signInAnonymously } from 'firebase/auth';
 
 const AuthContext = createContext();
 
@@ -18,6 +18,16 @@ export function AuthProvider({ children }) {
       return result.user;
     } catch (error) {
       console.error("Login failed:", error);
+      throw error;
+    }
+  }
+
+  async function loginAsGuest() {
+    try {
+      const result = await signInAnonymously(auth);
+      return result.user;
+    } catch (error) {
+      console.error("Guest login failed:", error);
       throw error;
     }
   }
@@ -43,6 +53,7 @@ export function AuthProvider({ children }) {
   const value = {
     user,
     login,
+    loginAsGuest,
     logout
   };
 
