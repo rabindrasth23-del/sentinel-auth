@@ -1,0 +1,105 @@
+version: "2"
+type: frontend
+tech_stack:
+  - JavaScript
+  - React
+  - Vite
+  - Tailwind CSS
+  - Firebase Auth
+  - Firestore
+  - Framer Motion
+  - Google Generative AI
+routes:
+  - path: /
+    file: src/pages/Landing.jsx
+    auth_required: false
+    description: Landing page for unauthenticated users
+  - path: /login
+    file: src/pages/Login.jsx
+    auth_required: false
+    description: User login page with Google Auth
+  - path: /admin/dashboard
+    file: src/pages/admin/Dashboard.jsx
+    auth_required: true
+    description: Admin overview dashboard
+  - path: /admin/users
+    file: src/pages/admin/Users.jsx
+    auth_required: true
+    description: User management for admins
+  - path: /admin/logs
+    file: src/pages/admin/Logs.jsx
+    auth_required: true
+    description: System and audit logs for admins
+  - path: /admin/breach-audit
+    file: src/pages/admin/BreachAudit.jsx
+    auth_required: true
+    description: Security breach auditing tool
+  - path: /admin/config
+    file: src/pages/admin/Config.jsx
+    auth_required: true
+    description: System configuration
+  - path: /admin/audit-analysis
+    file: src/pages/admin/AuditAnalysis.jsx
+    auth_required: true
+    description: AI-powered audit analysis
+  - path: /user/dashboard
+    file: src/pages/user/Dashboard.jsx
+    auth_required: true
+    description: User dashboard
+  - path: /user/history
+    file: src/pages/user/AuditHistory.jsx
+    auth_required: true
+    description: User's personal audit history
+  - path: /user/ai-search
+    file: src/pages/user/AISearch.jsx
+    auth_required: true
+    description: AI-powered search for logs
+  - path: /user/reports
+    file: src/pages/user/Reports.jsx
+    auth_required: true
+    description: User reports and analytics
+  - path: /user/settings
+    file: src/pages/user/Settings.jsx
+    auth_required: true
+    description: Personal settings and profile
+features:
+  - name: Google Authentication
+    description: Sign in with Google account
+    files:
+      - src/pages/Login.jsx
+      - src/contexts/AuthContext.jsx
+    entry_route: /login
+    user_interactions:
+      - Click "Sign in with Google" button
+    auth_required: false
+  - name: Admin Dashboard
+    description: View security stats and recent activities
+    files:
+      - src/pages/admin/Dashboard.jsx
+    entry_route: /admin/dashboard
+    user_interactions:
+      - View overview metrics
+      - Navigate to audits
+    auth_required: true
+  - name: AI Audit Analysis
+    description: Analyze audit logs using Gemini AI
+    files:
+      - src/pages/admin/AuditAnalysis.jsx
+    entry_route: /admin/audit-analysis
+    user_interactions:
+      - Click "Analyze" button
+      - View AI generated security insights
+    auth_required: true
+  - name: Breach Auditing
+    description: Monitor and identify potential security breaches
+    files:
+      - src/pages/admin/BreachAudit.jsx
+    entry_route: /admin/breach-audit
+    user_interactions:
+      - Filter breach reports
+      - Triage security alerts
+    auth_required: true
+known_limitations:
+  - issue: Local storage used for some session data
+    location: src/contexts/AuthContext.jsx
+    impact: Possible inconsistencies if multiple tabs used

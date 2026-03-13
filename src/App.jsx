@@ -2,36 +2,44 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Landing from './pages/Landing';
-import Dashboard from './pages/Dashboard';
-import Admin from './pages/Admin';
+import Login from './pages/Login';
 
-// Custom PrivateRoute component to protect the Dashboard
-function PrivateRoute({ children }) {
-  const { user, loading } = useAuth();
-  
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-midnight flex items-center justify-center relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-96 bg-azure rounded-full blur-[120px] opacity-20 animate-pulse" />
-        <div className="relative z-10 flex flex-col items-center gap-6">
-           <div className="size-16 border-2 border-azure/20 border-t-azure rounded-full animate-spin shadow-[0_0_20px_rgba(59,130,246,0.2)]"></div>
-           <div className="flex flex-col items-center">
-             <p className="text-azure font-bold tracking-[0.3em] uppercase text-xs animate-pulse">Initializing Sentinel Core</p>
-             <p className="text-white/20 text-[10px] font-medium tracking-widest mt-2 uppercase">Decrypting Secure Vault...</p>
-           </div>
-        </div>
-      </div>
-    );
-  }
-  
-  return user ? children : <Navigate to="/" />;
-}
+// Layouts
+import AdminLayout from './layouts/AdminLayout';
+import UserLayout from './layouts/UserLayout';
+
+// Pages
+import AdminDashboard from './pages/admin/Dashboard';
+import AdminUsers from './pages/admin/Users';
+import AdminLogs from './pages/admin/Logs';
+import AdminBreachAudit from './pages/admin/BreachAudit';
+import AdminConfig from './pages/admin/Config';
+import AdminAuditAnalysis from './pages/admin/AuditAnalysis';
+import UserDashboard from './pages/user/Dashboard';
+import UserAuditHistory from './pages/user/AuditHistory';
+import UserReports from './pages/user/Reports';
+import UserAISearch from './pages/user/AISearch';
+import UserSettings from './pages/user/Settings';
 
 // Redirects logged-in users away from the Landing page
 function PublicRoute({ children }) {
   const { user, loading } = useAuth();
+  if (loading) return null; // Let PrivateRoute handle the loading state visual
+  // TEMPORARY: Redirect to user dashboard for now, later we'll redirect based on role
+  return !user ? children : <Navigate to="/user/dashboard" />;
+}
+
+// Ensure at root '/' we decide where to go
+function RootRoute() {
+  const { user, loading } = useAuth();
   if (loading) return null;
-  return !user ? children : <Navigate to="/dashboard" />;
+  if (!user) return <Landing />;
+  
+  if (user.role === 'admin') {
+    return <Navigate to="/admin/dashboard" />;
+  }
+  
+  return <Navigate to="/user/dashboard" />;
 }
 
 function App() {
@@ -39,10 +47,31 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<PublicRoute><Landing /></PublicRoute>} />
-          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-          <Route path="/admin" element={<PrivateRoute><Admin /></PrivateRoute>} />
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="/" element={<RootRoute />} />
+          <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+          
+          {/* Strict Admin Routes */}
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<Navigate to="/admin/dashboard" replace />} />
+            <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="users" element={<AdminUsers />} />
+            <Route path="logs" element={<AdminLogs />} />
+            <Route path="breach-audit" element={<AdminBreachAudit />} />
+            <Route path="config" element={<AdminConfig />} />
+            <Route path="audit-analysis" element={<AdminAuditAnalysis />} />
+            {/* More admin routes will go here */}
+          </Route>
+
+          {/* Strict User Routes */}
+          <Route path="/user" element={<UserLayout />}>
+            <Route index element={<Navigate to="/user/dashboard" replace />} />
+            <Route path="dashboard" element={<UserDashboard />} />
+            <Route path="history" element={<UserAuditHistory />} />
+            <Route path="ai-search" element={<UserAISearch />} />
+            <Route path="reports" element={<UserReports />} />
+            <Route path="settings" element={<UserSettings />} />
+            {/* More user routes will go here */}
+          </Route>
         </Routes>
       </Router>
     </AuthProvider>
